@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shanedit;
+package defaultPkg;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,36 +19,39 @@ import java.util.ArrayList;
  */
 public class FileIO { 
     
-    String fileName = "foo";
-    ArrayList<String> arr = new ArrayList();
+    static String fileName = "foo";
     
     public FileIO(String s) {
         fileName = s;
     }
     
-    void rmLine(String s) {
+    static void rmLine(String s, ArrayList<String> arr) {
         arr.remove(s);
     }
-    void SOP(String s) {
+    static void SOP(String s) {
         System.out.println(s);
     }
     
-    void dumpToFile() {
+    static void dumpToFile(ArrayList<String> array) {
         boolean success = false;
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(fileName))) {
+        try {
+            BufferedWriter fw = new BufferedWriter(new FileWriter(fileName));
+            
             int k = 0;
-            while (k < arr.size()) {
-                fw.write(arr.get(k));
+            while (k < array.size()) {
+                fw.write(array.get(k));
+                SOP(array.get(k));
                 fw.newLine();
                 k += 1;
             }
+            fw.close();
             success = true;
-            if (success) {
-                SOP("Successfully saved file.");
-            }
-            else {
-                SOP("Save failed.");
-            }
+        if (success) {
+            SOP("Successfully saved file.");
+        }
+        else {
+            SOP("Save failed.");
+        }
         }
         catch (IOException e) {
             SOP("IOException: " + e);
@@ -56,16 +60,20 @@ public class FileIO {
         
     }
     
-    String getFromLineNo(int number) {
+    static String getFromLineNo(int number, ArrayList<String> array) {
         String obtainedLine;
-        obtainedLine = arr.get(number);
+        obtainedLine = array.get(number);
         return obtainedLine;
     }
     
-    int searchForLineNumber(String s, int lines) {
+    static void message(String s) {
+        JOptionPane.showMessageDialog(null, s);
+    } 
+    
+    static int searchForLineNumber(String s, ArrayList<String> array, int lines) {
         int lnNo = 0;
         while (lnNo <= lines) {
-            if (arr.get(lnNo).equals(s)) {
+            if (array.get(lnNo).equals(s)) {
                 break;
             }
             else {
@@ -77,7 +85,7 @@ public class FileIO {
     
     
     
-    void addXMLTag(boolean close, String s) {
+    static void addXMLTag(boolean close, String s, ArrayList<String> a) {
 
         String constructedString = "<";
         if (close) {
@@ -90,13 +98,12 @@ public class FileIO {
             constructedString = constructedString + ">";
         }
         SOP(constructedString);
-        arr.add(constructedString);
+        a.add(constructedString);
         SOP(""+95);
     }
     
-    void readFileIntoArray(int lines) {        
+    static void readFileIntoArray(ArrayList<String> array, int lines) {        
         try {
-            SOP("\n\n\n\n<<<<File contents begin here!>>>>\n\n\n\n");
             FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
             while (br.readLine() != null) {
@@ -109,33 +116,24 @@ public class FileIO {
             br = new BufferedReader(fr);
 
             for (int j = 0; j < lines; j++) {
-                arr.add(j, br.readLine());
-                SOP(arr.get(j));
+                array.add(j, br.readLine());
+                FileIO.SOP(array.get(j));
             }
 
             br.close();
-            SOP("\n\n\n\n<<<<File contents end here!>>>>\n\n\n\n");
         }
         catch (IOException e) {
-            SOP("IOException: " + e);
+            FileIO.SOP("IOException: " + e);
         }
     }
     
-    ArrayList<String> linesBetween(int begin, int end) {
+    static ArrayList<String> linesBetween(int begin, int end, ArrayList<String> source) {
         
         ArrayList<String> result = new ArrayList();
         int length = end - begin;
-        int i = begin;
-        SOP("length in linesBetween is " + length);
-        for (int j = 0; j <= length; j++) {
-            result.add(arr.get(i));
-            i++;
-            System.out.println("Wrote line: \"" + arr.get(i) + "\" to ArrayList");
+        for (int i = begin; i <= length; i++) {
+            result.add(source.get(i));
         }
         return result;
-    }
-    
-    void AddLine(String s) {
-        arr.add(s);
     }
 }
