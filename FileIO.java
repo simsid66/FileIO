@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package FileIO;
+package SLSdev;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
  *
  * @author sid
  */
-
 public class FileIO {
 String filename = "foo";
     int No = 0;
@@ -64,10 +63,10 @@ String filename = "foo";
         return obtainedLine;
     }
     
-    int searchForLineNumber(String y, int lines) {
+    int searchForLineNumber(String y) {
         int lnNo = 0;
         String s = y.trim();
-        while (lnNo <= lines) {
+        while (lnNo <= arr.size()) {
             if (arr.get(lnNo).equals(s)) {
                 break;
             }
@@ -138,5 +137,9 @@ String filename = "foo";
     void dispose() {
     arr = new ArrayList();
     filename = "";
+    }
+    
+    int numLines() {
+        return arr.size();
     }
 }
