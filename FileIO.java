@@ -62,8 +62,9 @@ public class FileIO {
         return obtainedLine;
     }
     
-    int searchForLineNumber(String s, int lines) {
+    int searchForLineNumber(String y, int lines) {
         int lnNo = 0;
+        String s = y.trim();
         while (lnNo <= lines) {
             if (arr.get(lnNo).equals(s)) {
                 break;
