@@ -18,11 +18,13 @@ import java.util.ArrayList;
  */
 public class FileIO { 
     
-    String fileName = "foo";
+    String filename = "foo";
+    int No = 0;
     ArrayList<String> arr = new ArrayList();
     
     public FileIO(String s) {
         fileName = s;
+        load(filename, No);
     }
     
     void rmLine(String s) {
@@ -95,7 +97,7 @@ public class FileIO {
         SOP(""+95);
     }
     
-    void readFileIntoArray(int lines) {        
+    void load(String s, int lines) {        
         try {
             SOP("\n\n\n\n<<<<File contents begin here!>>>>\n\n\n\n");
             FileReader fr = new FileReader(fileName);
@@ -122,21 +124,13 @@ public class FileIO {
         }
     }
     
-    ArrayList<String> linesBetween(int begin, int end) {
-        
-        ArrayList<String> result = new ArrayList();
-        int length = end - begin;
-        int i = begin;
-        SOP("length in linesBetween is " + length);
-        for (int j = 0; j <= length; j++) {
-            result.add(arr.get(i));
-            i++;
-            System.out.println("Wrote line: \"" + arr.get(i) + "\" to ArrayList");
-        }
-        return result;
-    }
-    
     void AddLine(String s) {
         arr.add(s);
     }
+    
+    void dispose() {
+    arr = new ArrayList();
+    filename = s;
+    }
 }
+
