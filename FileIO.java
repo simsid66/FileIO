@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shanedit;
+package FileIO;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Student
+ * @author sid
  */
-public class FileIO { 
-    
-    String filename = "foo";
+
+public class FileIO {
+String filename = "foo";
     int No = 0;
     ArrayList<String> arr = new ArrayList();
     
     public FileIO(String s) {
-        fileName = s;
+        filename = s;
         load(filename, No);
     }
     
@@ -36,7 +36,7 @@ public class FileIO {
     
     void dumpToFile() {
         boolean success = false;
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(fileName))) {
+        try (BufferedWriter fw = new BufferedWriter(new FileWriter(filename))) {
             int k = 0;
             while (k < arr.size()) {
                 fw.write(arr.get(k));
@@ -80,18 +80,25 @@ public class FileIO {
     
     
     
-    void addXMLTag(boolean close, String s) {
-
-        String constructedString = "<";
+    void addXMLTag(boolean close, String s, int indentLevel) {
+        
+        String tab = "    ";
+        String constructedString = "";
+        for (int i = 0; i < indentLevel; i++) {
+            constructedString += tab;
+        }
+        
+        constructedString += "<";
         if (close) {
-            constructedString = constructedString + "/";
-            constructedString = constructedString + s;
-            constructedString = constructedString + ">";
+            constructedString += "/";
+            constructedString += s;
+            constructedString += ">";
         }
         else {
-            constructedString = constructedString + s;
-            constructedString = constructedString + ">";
+            constructedString += s;
+            constructedString += ">";
         }
+  
         SOP(constructedString);
         arr.add(constructedString);
         SOP(""+95);
@@ -100,7 +107,7 @@ public class FileIO {
     void load(String s, int lines) {        
         try {
             SOP("\n\n\n\n<<<<File contents begin here!>>>>\n\n\n\n");
-            FileReader fr = new FileReader(fileName);
+            FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             while (br.readLine() != null) {
                 lines++;
@@ -108,7 +115,7 @@ public class FileIO {
             br.close();
             fr.close();
 
-            fr = new FileReader(fileName);
+            fr = new FileReader(filename);
             br = new BufferedReader(fr);
 
             for (int j = 0; j < lines; j++) {
@@ -130,7 +137,6 @@ public class FileIO {
     
     void dispose() {
     arr = new ArrayList();
-    filename = s;
+    filename = "";
     }
 }
-
