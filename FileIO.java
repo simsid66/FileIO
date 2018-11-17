@@ -26,6 +26,11 @@ String filename = "foo";
         load(filename, No);
     }
     
+    public FileIO(String s, ArrayList<String> existing) {
+        filename = s;
+        arr = existing;
+    }
+    
     void rmLine(String s) {
         arr.remove(s);
     }
