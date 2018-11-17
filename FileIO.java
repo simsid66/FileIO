@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SLSdev;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -65,7 +64,7 @@ String filename = "foo";
     String getFromLineNo(int number) {
         String obtainedLine;
         obtainedLine = arr.get(number);
-        return obtainedLine;
+        return obtainedLine.trim();
     }
     
     int searchForLineNumber(String y) {
